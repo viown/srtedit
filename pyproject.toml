@@ -5,6 +5,9 @@ description = ""
 authors = ["viown <48097677+viown@users.noreply.github.com>"]
 readme = "README.md"
 
+[tool.poetry.scripts]
+srtedit = "srtedit.cli:srtedit"
+
 [tool.poetry.dependencies]
 python = "^3.11"
 click = "^8.1.7"
