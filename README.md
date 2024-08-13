@@ -42,6 +42,8 @@ srtedit subtitles.srt -s 1 --view
 
 Will display the start/end times and the content of the selected element. Omitting the `-s` option will display all subtitle elements in the file.
 
+Note: The output from `--view` is not compatible with the .srt format. You should use the `-o/--output` option when writing any files.
+
 ### Remove subtitle element
 
 Use the `-r/--remove` option to remove a selected element.
@@ -75,3 +77,5 @@ Will set the text of the first element to "New text" then add 1 second to the st
 ### Disclaimer
 
 Note that srtedit will select all subtitle elements by default. Omitting the `-s/--select` option will result in the specified operation (`--edit`/`--remove`/`--offset`) being applied to all elements.
+
+Without specifying an output path, you can use the `--view` flag in conjuction with any of the operations above to see your changes before writing.
