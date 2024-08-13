@@ -1,8 +1,10 @@
 from datetime import timedelta
 import srt
+import os
 
 class Srt:
     def __init__(self, path):
+        self.path = path
         with open(path, "r") as f:
             self.subtitles = list(srt.parse(f.read()))
 

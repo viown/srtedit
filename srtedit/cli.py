@@ -1,6 +1,7 @@
 from srtedit.subtitle import Srt
 import click
 import os
+from srt import SRTParseError
 
 def error(message):
     click.echo(f"{click.style('Error:', fg='red')} {message}")
@@ -15,7 +16,7 @@ def warn(message):
 @click.option('--remove', '-r', is_flag=True, help="Removes the selected element(s)")
 @click.option('--offset', '-m', help="Offset the selected element(s) in milliseconds.", type=int)
 @click.option('--count', '-c', is_flag=True, help="Count the number of subtitle elements.")
-@click.option('--output', '-o', help="Output path")
+@click.option('--output', '-o', help="Output path", type=click.Path())
 @click.argument('path', type=click.Path())
 def srtedit(path, select, view, edit, remove, offset, count, output):
     if output and os.path.realpath(path) == os.path.realpath(output):
@@ -27,8 +28,12 @@ def srtedit(path, select, view, edit, remove, offset, count, output):
     if not os.path.exists(path):
         error("Specified path does not exist")
         return
-    
-    srt = Srt(path)
+
+    try:
+        srt = Srt(path)
+    except SRTParseError:
+        error("Parse error. Possibly invalid SRT file.")
+        return
 
     selected_elements = []
 
