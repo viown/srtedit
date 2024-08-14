@@ -3,11 +3,14 @@ import click
 import os
 from srt import SRTParseError
 
+
 def error(message):
     click.echo(f"{click.style('Error:', fg='red')} {message}")
 
+
 def warn(message):
     click.echo(f"{click.style('Warning:', fg=(255, 191, 0))} {message}")
+
 
 @click.command()
 @click.option('--select', '-s', help="Select a subtitle element", default=None, type=int)
@@ -37,13 +40,13 @@ def srtedit(path, select, view, edit, remove, offset, count, output):
 
     selected_elements = []
 
-    if select == None:
-        selected_elements = list(range(1, len(srt)+1))
+    if select is None:
+        selected_elements = list(range(0, len(srt)))
     else:
-        element = int(select)
+        element = int(select) - 1
         selected_elements.append(element)
 
-        if element > len(srt) or element < 1:
+        if element > len(srt) or element < 0:
             error("Selected value goes beyond the available subtitle elements")
             return
 
@@ -59,7 +62,7 @@ def srtedit(path, select, view, edit, remove, offset, count, output):
                 warn(f"Attempting to view deleted element ({element})")
             else:
                 click.echo(srt.view(element))
-    
+
     if count:
         click.echo(srt.count())
 

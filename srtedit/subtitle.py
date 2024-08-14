@@ -1,6 +1,5 @@
 from datetime import timedelta
 import srt
-import os
 
 class Srt:
     def __init__(self, path):
@@ -12,23 +11,23 @@ class Srt:
         return len(self.subtitles)
 
     def view(self, index):
-        s = f"{index}\n"
-        s += f"{self.subtitles[index-1].start.total_seconds()}s --> {self.subtitles[index-1].end.total_seconds()}s\n"
-        s += self.subtitles[index-1].content + '\n'
+        s = f"{index+1}\n"
+        s += f"{self.subtitles[index].start.total_seconds()}s --> {self.subtitles[index].end.total_seconds()}s\n"
+        s += self.subtitles[index].content + '\n'
 
         return s
     
     def edit(self, index, new_content):
-        self.subtitles[index-1].content = new_content
+        self.subtitles[index].content = new_content
 
     def remove(self, index):
-        self.subtitles[index-1] = None
+        self.subtitles[index] = None
 
     def offset(self, index, ms):
         offset_value = timedelta(milliseconds=ms)
 
-        self.subtitles[index-1].start = self.subtitles[index-1].start + offset_value
-        self.subtitles[index-1].end = self.subtitles[index-1].end + offset_value
+        self.subtitles[index].start = self.subtitles[index].start + offset_value
+        self.subtitles[index].end = self.subtitles[index].end + offset_value
 
     def count(self):
         i = 0
