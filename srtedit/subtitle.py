@@ -1,6 +1,7 @@
 from datetime import timedelta
 import srt
 
+
 class Srt:
     def __init__(self, path):
         self.path = path
@@ -16,7 +17,7 @@ class Srt:
         s += self.subtitles[index].content + '\n'
 
         return s
-    
+
     def edit(self, index, new_content):
         self.subtitles[index].content = new_content
 
@@ -38,4 +39,3 @@ class Srt:
 
     def output(self):
         return srt.compose([srt for srt in self.subtitles if srt is not None])
-    
