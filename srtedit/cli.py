@@ -1,7 +1,7 @@
-from srtedit.subtitle import Srt
-import click
 import os
 from srt import SRTParseError
+import click
+from srtedit.subtitle import Srt
 
 
 def error(message):
