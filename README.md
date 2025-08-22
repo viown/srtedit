@@ -13,49 +13,50 @@ pip install srtedit
 ### Offset subtitles in milliseconds
 
 ```
-srtedit subtitles.srt --offset 1000 -o modified.srt
+srtedit subtitles.srt --offset 1000
 ```
 
 Will add exactly 1 second to all subtitle elements. Conversely:
 
 ```
-srtedit subtitles.srt --offset -1000 -o modified.srt
+srtedit subtitles.srt --offset -1000
 ```
 
 Will subtract 1 second from all subtitle elements.
 
-### Offset individual subtitle element
-
-Use the `-s/--select` option to select an individual element to offset. Example:
+The modified subtitles will be printed to stdout. Use `-o` to specify an output file:
 
 ```
-srtedit subtitles.srt -s 1 --offset 2000 -o modified.srt
+srtedit subtitles.srt --offset 500 -o new.srt
 ```
 
-Will add 2s to the first subtitle element only.
+### Selecting
 
-### View contents of subtitle element
+The `-s/--select` option allows you to select a single or range of subtitle elements to modify. This can work alongside other options such as `--remove`, `--edit`, and `--offset`.
 
+On its own, it can be used to select a portion of the subtitles:
+
+```bash
+srtedit subtitles.srt -s 1:10   # Grab the first 10 elements 
 ```
-srtedit subtitles.srt -s 1 --view
+
+Single element:
+```bash
+srtedit subtitles.srt -s 4  # Grab the 4th element
 ```
-
-Will display the start/end times and the content of the selected element. Omitting the `-s` option will display all subtitle elements in the file.
-
-Note: The output from `--view` is not compatible with the .srt format. You should use the `-o/--output` option when writing any files.
 
 ### Remove subtitle element
 
 Use the `-r/--remove` option to remove a selected element.
 
 ```
-srtedit subtitles.srt -s 1 --remove -o modified.srt
+srtedit subtitles.srt -s 1 --remove
 ```
 
 ### Edit subtitle element
 
 ```
-srtedit subtitles.srt -s 1 --edit "New text" -o modified.srt
+srtedit subtitles.srt -s 1 --edit "New text"
 ```
 
 ### Count number of elements
@@ -73,9 +74,3 @@ srtedit subtitles.srt -s 1 --edit "New text" --offset 1000 --view -o modified.sr
 ```
 
 Will set the text of the first element to "New text" then add 1 second to the start and end times and then display the new values to the terminal and then finally write it to `modified.srt`
-
-### Disclaimer
-
-Note that srtedit will select all subtitle elements by default. Omitting the `-s/--select` option will result in the specified operation (`--edit`/`--remove`/`--offset`) being applied to all elements.
-
-Without specifying an output path, you can use the `--view` flag in conjuction with any of the operations above to see your changes before writing.
